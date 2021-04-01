@@ -12,16 +12,31 @@ public class Movement : MonoBehaviour
     private float _gravity = 20.0f;
     private Vector3 _moveDir;
     public CharacterController _charC;
+    private Animator characterAnimator;
+
     private void Start()
     {
         _charC = GetComponent<CharacterController>();
+        characterAnimator = GetComponentInChildren<Animator>();
     }
     private void Update()
     {
         Move();
     }
+
     private void Move()
     {
+        Vector2 controlVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+        if (controlVector.magnitude >= 0.05f)
+        {
+            characterAnimator.SetBool("moving", true);
+        }
+        else
+        {
+            characterAnimator.SetBool("moving", false);
+        }
+
         if (_charC.isGrounded)
         {
             if (Input.GetButton("Sprint"))
@@ -36,7 +51,7 @@ public class Movement : MonoBehaviour
             {
                 moveSpeed = walkSpeed;
             }
-            _moveDir = transform.TransformDirection(new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized * moveSpeed); 
+            _moveDir = transform.TransformDirection(new Vector3(controlVector.x, 0, controlVector.y).normalized * moveSpeed); 
             if (Input.GetButton("Jump"))
             {
                 _moveDir.y = jumpSpeed;
