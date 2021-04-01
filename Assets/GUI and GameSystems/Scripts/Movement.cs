@@ -42,14 +42,17 @@ public class Movement : MonoBehaviour
             if (Input.GetButton("Sprint"))
             {
                 moveSpeed = runSpeed;
+                characterAnimator.SetFloat("speed", 2);
             }
             else if (Input.GetButton("Crouch"))
             {
                 moveSpeed = crouchSpeed;
+                characterAnimator.SetFloat("speed", 4);
             }
             else
             {
                 moveSpeed = walkSpeed;
+                characterAnimator.SetFloat("speed", 1);
             }
             _moveDir = transform.TransformDirection(new Vector3(controlVector.x, 0, controlVector.y).normalized * moveSpeed); 
             if (Input.GetButton("Jump"))
