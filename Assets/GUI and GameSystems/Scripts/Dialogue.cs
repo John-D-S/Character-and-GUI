@@ -9,13 +9,4 @@ public class Dialogue : MonoBehaviour
     public LineOfDialogue[] linesOfDialogue;
 
     public LineOfDialogue bye;
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            DialogueManager.theManager.LoadDialogue(this);
-        }
-    }
 }

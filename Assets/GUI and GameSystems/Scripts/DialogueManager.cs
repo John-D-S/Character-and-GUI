@@ -9,6 +9,8 @@ public class DialogueManager : MonoBehaviour
     [SerializeField]
     Transform buttonPanel;
 
+    GameObject dialoguePanel;
+
     [SerializeField]
     GameObject buttonPrefab;
 
@@ -18,6 +20,9 @@ public class DialogueManager : MonoBehaviour
 
     private void Awake()
     {
+        dialoguePanel = transform.Find("Scroll View").gameObject;
+        dialoguePanel.SetActive(false);
+
         if (!theManager)
         {
             theManager = this;     
@@ -38,6 +43,9 @@ public class DialogueManager : MonoBehaviour
 
     public void LoadDialogue(Dialogue dialogue)
     {
+        dialoguePanel.SetActive(true);
+        Button spawnedButton;
+
         CleanUpButtons();
 
         currentDialogue = dialogue;
@@ -48,16 +56,28 @@ public class DialogueManager : MonoBehaviour
         int i = 0;
         foreach (LineOfDialogue lineOfDialogue in dialogue.linesOfDialogue)
         {
-            Button spawnedButton = Instantiate(buttonPrefab, buttonPanel).GetComponent<Button>();
+            spawnedButton = Instantiate(buttonPrefab, buttonPanel).GetComponent<Button>();
             spawnedButton.GetComponentInChildren<TMP_Text>().text = lineOfDialogue.topic;
             int j = i;
             spawnedButton.onClick.AddListener(delegate { ButtonClicked(j); });
             i++;
         }
+
+        //spawn the bye button
+        spawnedButton = Instantiate(buttonPrefab, buttonPanel).GetComponent<Button>();
+        spawnedButton.GetComponentInChildren<TMP_Text>().text = dialogue.bye.topic;
+        spawnedButton.onClick.AddListener(EndConversation);
     }
 
     void ButtonClicked(int dialogueNum)
     {
         print(currentDialogue.linesOfDialogue[dialogueNum].response);
+    }
+
+    void EndConversation()
+    {
+        print(currentDialogue.bye.response);
+        CleanUpButtons();
+        dialoguePanel.SetActive(false);
     }
 }

@@ -330,6 +330,7 @@ GameObject:
   m_Component:
   - component: {fileID: 336358382}
   - component: {fileID: 336358383}
+  - component: {fileID: 336358384}
   m_Layer: 5
   m_Name: Vertical Sorter
   m_TagString: Untagged
@@ -384,6 +385,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &336358384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336358381}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90a877f293376524baaa9a57c4d9fdc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonPanel: {fileID: 1072388147}
+  buttonPrefab: {fileID: 7557668125801519785, guid: 3ceb9862166e9374c92581d6ca935eca, type: 3}
 --- !u!1 &364338681
 GameObject:
   m_ObjectHideFlags: 0
@@ -785,6 +800,7 @@ GameObject:
   - component: {fileID: 937849110}
   - component: {fileID: 937849105}
   - component: {fileID: 937849107}
+  - component: {fileID: 937849106}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -810,6 +826,18 @@ MonoBehaviour:
   crouchSpeed: 5
   jumpSpeed: 10
   _charC: {fileID: 937849110}
+--- !u!114 &937849106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937849104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00c5428a8ad38c34fa5d2420c1819c8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &937849107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1397,7 +1425,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1603504339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1477,7 +1505,7 @@ GameObject:
   - component: {fileID: 1956198745}
   m_Layer: 0
   m_Name: NPC
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
