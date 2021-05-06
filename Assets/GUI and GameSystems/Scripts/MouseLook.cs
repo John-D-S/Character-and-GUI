@@ -25,22 +25,23 @@ public class MouseLook : MonoBehaviour
         {
             GetComponent<Rigidbody>().freezeRotation = true;
         }
-        //Cursor.lockState = CursorLockMode.Locked;
-        //Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
     void Update()
     {
-        if(axis == RotationalAxis.MouseX)
+        if (!Cursor.visible)
         {
-            transform.Rotate(0,Input.GetAxisRaw("Mouse X") * sensitivity * Time.fixedDeltaTime, 0);
-        }
-        else
-        {
-            _rotY += Input.GetAxisRaw("Mouse Y") * sensitivity * Time.fixedDeltaTime;
-            _rotY = Mathf.Clamp(_rotY, minY,maxY);
-            transform.localEulerAngles = new Vector3(-_rotY, 0.0f);
+            if(axis == RotationalAxis.MouseX)
+            {
+                transform.Rotate(0,Input.GetAxisRaw("Mouse X") * sensitivity * Time.fixedDeltaTime, 0);
+            }
+            else
+            {
+                _rotY += Input.GetAxisRaw("Mouse Y") * sensitivity * Time.fixedDeltaTime;
+                _rotY = Mathf.Clamp(_rotY, minY,maxY);
+                transform.localEulerAngles = new Vector3(-_rotY, 0.0f);
+            }
         }
     }
-
-
 }

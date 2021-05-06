@@ -9,4 +9,9 @@ public class Dialogue : MonoBehaviour
     public LineOfDialogue[] linesOfDialogue;
 
     public LineOfDialogue bye;
+
+    private void Start()
+    {
+        transform.tag = "NPC";
+    }
 }

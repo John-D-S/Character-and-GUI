@@ -14,6 +14,9 @@ public class DialogueManager : MonoBehaviour
     [SerializeField]
     GameObject buttonPrefab;
 
+    [SerializeField]
+    TextMeshProUGUI responsePanel;
+
     public static DialogueManager theManager;
 
     private Dialogue currentDialogue;
@@ -31,6 +34,8 @@ public class DialogueManager : MonoBehaviour
         {
             Destroy(this);
         }
+        
+        CleanUpButtons();
     }
 
     void CleanUpButtons()
@@ -38,11 +43,19 @@ public class DialogueManager : MonoBehaviour
         foreach (Transform child in buttonPanel)
         {
             Destroy(child.gameObject);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        if (responsePanel.text != "")
+        {
+            StartCoroutine(ClearDialogueResponse());
         }
     }
 
     public void LoadDialogue(Dialogue dialogue)
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         dialoguePanel.SetActive(true);
         Button spawnedButton;
 
@@ -50,7 +63,7 @@ public class DialogueManager : MonoBehaviour
 
         currentDialogue = dialogue;
 
-        print(dialogue.greeting);
+        Respond(dialogue.greeting);
 
         //spawn a button for each dialogue option inside dialogue
         int i = 0;
@@ -69,14 +82,26 @@ public class DialogueManager : MonoBehaviour
         spawnedButton.onClick.AddListener(EndConversation);
     }
 
+    IEnumerator ClearDialogueResponse()
+    {
+        yield return new WaitForSeconds(5);
+        responsePanel.text = "";
+    }
+
+
+    void Respond(string _response)
+    {
+        responsePanel.text = _response;
+    }
+
     void ButtonClicked(int dialogueNum)
     {
-        print(currentDialogue.linesOfDialogue[dialogueNum].response);
+        Respond(currentDialogue.linesOfDialogue[dialogueNum].response);
     }
 
     void EndConversation()
     {
-        print(currentDialogue.bye.response);
+        Respond(currentDialogue.bye.response);
         CleanUpButtons();
         dialoguePanel.SetActive(false);
     }

@@ -47,18 +47,21 @@ public class Movement : MonoBehaviour
             else if (Input.GetButton("Crouch"))
             {
                 moveSpeed = crouchSpeed;
-                characterAnimator.SetFloat("speed", 4);
+                characterAnimator.SetFloat("speed", 0.5f);
             }
             else
             {
                 moveSpeed = walkSpeed;
                 characterAnimator.SetFloat("speed", 1);
             }
-            _moveDir = transform.TransformDirection(new Vector3(controlVector.x, 0, controlVector.y).normalized * moveSpeed); 
+            _moveDir = transform.TransformDirection(new Vector3(controlVector.x, 0, controlVector.y).normalized * (moveSpeed * Time.deltaTime)) + _moveDir;
             if (Input.GetButton("Jump"))
             {
-                _moveDir.y = jumpSpeed;
+                _moveDir = transform.TransformDirection(new Vector3(controlVector.x, 0, controlVector.y).normalized * moveSpeed) + Vector3.up * jumpSpeed;
             }
+
+            _moveDir.x = _moveDir.x * 0.99f;
+            _moveDir.z = _moveDir.z * 0.99f;
         }
         _moveDir.y -= _gravity * Time.deltaTime;
         _charC.Move(_moveDir * Time.deltaTime);
